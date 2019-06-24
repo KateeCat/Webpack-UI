@@ -1,5 +1,14 @@
 <template>
-	<div>
-		<h1>这里是Member</h1>
-	</div>
+  <div>
+    <h3>MemberContainer</h3>
+  </div>
 </template>
+
+<script>
+</script>
+
+<style lang="scss" scoped>
+h3{
+  color:red;
+}
+</style>
