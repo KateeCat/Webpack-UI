@@ -60,10 +60,9 @@ import numbox from '../subcomponents/numbox.vue'
 			return {
 				id : this.$route.params.id,
 				lunbotu:[],
-				goodsInfo:[],
+				goodsInfo:{},
 				ballFlag: false,
-				selectedCount: 1,
-				max : []
+				selectedCount: 1
 			}
 		},
 		created() {
@@ -94,9 +93,6 @@ import numbox from '../subcomponents/numbox.vue'
 			goComment (id){
 				this.$router.push('/home/goodscomment/'+id)
 			},
-			addCar () {
-				this.ballFlag = !this.ballFlag
-			},
 			beforeEnter(el){
 				el.style.transform = "translate(0,0)"
 			},
@@ -117,6 +113,19 @@ import numbox from '../subcomponents/numbox.vue'
 			getSelectedNumber(number){
 				this.selectedCount = number
 				console.log('父组件得到的'+this.selectedCount)
+			},
+			addCar () {
+				console.log(this.goodsInfo)
+				this.ballFlag = !this.ballFlag;
+				var goodsinfo = {
+					id:this.id,
+					count:this.selectedCount,
+					price:this.goodsInfo.sell_price,
+					selected:true};
+
+				this.$store.commit("addToCar",goodsinfo);
+
+
 			}
 		},
 		components : {
@@ -165,3 +174,4 @@ body,html {
 		}
 }
 </style>
+
