@@ -1,11 +1,11 @@
 <template>
 	<div class="app-container">
 		<!-- 顶部header区域 -->
-		<mt-header fixed title="小吕测试项目">
+		<mt-header class="mui-bar mui-bar-nav " fixed  title="小吕测试项目"  >
   			<span to="/" slot="left">
-   			 <mt-button icon="back" @click="goBack">返回</mt-button>
+   			 <mt-button icon="back" @click="goBack" v-show="flag">返回</mt-button>
   			</span>
-  			<mt-button icon="more" slot="right"></mt-button>
+  			<!-- <mt-button icon="more" slot="right"></mt-button> -->
 		</mt-header>
 		<!-- 中间路由router-view区域 -->
 		<transition>
@@ -19,17 +19,13 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/member">
-				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">会员</span>
-			</router-link>
 			<router-link class="mui-tab-item" to="/shopcar">
 				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{$store.getters.getAllcount}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
-			<router-link class="mui-tab-item" to="/search">
-				<span class="mui-icon mui-icon-search"></span>
-				<span class="mui-tab-label">搜索</span>
+			<router-link class="mui-tab-item" to="/member">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">会员</span>
 			</router-link>
 		</nav>
 	</div>
@@ -37,16 +33,31 @@
 </template>
 
 <script>
+import mui from './lib/mui/js/mui.min.js'
+mui('body').on('click','a',function(){document.location.href=this.href;});
 
 export default {
 	data(){
 		return{
-
+			flag : false
 		}
+	},
+	created() {
+		this.flag = this.$router.path ==='/home' ? false : true
+
 	},
 	methods : {
 		goBack () {
-			this.$route.go(-1)
+			this.$router.go(-1);
+		}
+	},
+	watch : {
+		'$router.path':function(newVal){
+			if(newVal == '/home'){
+				this.flag = false;
+			}else {
+				this.flag = true;
+			}
 		}
 	}
 
@@ -75,5 +86,12 @@ export default {
 .v-leave-active {
   transition: all 0.5s ease;
 }
-
+.mint-header{
+	color: #000;
+}
+.mint-header-title{
+    text-align: center;
+    white-space: nowrap;
+    color: #000;
+}
 </style>

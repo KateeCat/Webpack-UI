@@ -10,7 +10,7 @@
 	</div>
 
 	<!-- 缩略图区域 -->
-<!-- 	  <img class="preview-img" v-for="(item, index) in list" :src="item.src" height="100" @click="$preview.open(index, list)" :key="item.url"> -->
+<!-- <img class="preview-img" v-for="(item, index) in list" :src="item.src" height="100" @click="$preview.open(index, list)" :key="item.url"> -->
 	<div class="thumbs">
 		<vue-preview :slides="list"></vue-preview>
 	</div>
@@ -57,7 +57,8 @@ export default {
 						item.h = 600;
 						item.msrc = item.src;
 					})
-					this.list = result.body.message;
+					this.list = result.body.message
+					console.log(this.list)
 				}
 			})
 		},
@@ -69,9 +70,6 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-	  touch-action: pan-y;
-}
 .photoInfo-container{
 	padding: 3px;
 	.imgtitle {
@@ -111,3 +109,4 @@ export default {
 }
 
 </style>
+

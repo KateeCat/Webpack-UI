@@ -25,7 +25,7 @@
 						</p>
 						<p>购买数量：<numbox @getnumber="getSelectedNumber" :max="goodsInfo.stock_quantity"></numbox>
 						</p>
-						<mt-button type="primary" size="small">立即购买</mt-button>
+						<mt-button type="primary" size="small" @click="goCar">立即购买</mt-button>
 						<mt-button type="danger" size="small" @click="addCar">加入购物车</mt-button>
 					</div>
 				</div>
@@ -126,6 +126,9 @@ import numbox from '../subcomponents/numbox.vue'
 				this.$store.commit("addToCar",goodsinfo);
 
 
+			},
+			goCar () {
+				this.$router.push('/shopcar');
 			}
 		},
 		components : {

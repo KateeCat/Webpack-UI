@@ -27,7 +27,7 @@
              <p>总计（不含运费）</p>
              <p>已勾选商品 <span class="red">{{$store.getters.getSum.count}}</span> 件, 总价 <span class="red">¥{{$store.getters.getSum.amount}}</span></p>
            </div>
-          <mt-button type="danger">去结算</mt-button>
+          <mt-button type="danger" @click="goCheck($store.getters.getSum.amount)">去结算</mt-button>
           </div>
           <!-- <p>{{$store.getters.getGoodsSelected}}</p> -->
           <!-- <p>{{$store.getters.getSum}}</p> -->
@@ -40,11 +40,14 @@
 
 <script>
 import numbox from '../subcomponents/shopcar_numbox.vue'
+import { MessageBox } from 'mint-ui';
+import { Toast } from 'mint-ui';
 
 export default {
   data(){
     return{
-      goodslist:[]
+      goodslist:[],
+
     }
   },
   created() {
@@ -64,11 +67,28 @@ export default {
       })
     },
     remove(id,index){
-      this.goodslist.splice(index,1);
-      this.$store.commit("delGoodsInfo",id)
+      MessageBox.confirm('',{
+      title: '提示',
+      message: '您确定要删除此商品?',
+      showCancelButton: true,
+    }).then(action=>{
+        if(action == 'confirm'){
+         this.goodslist.splice(index,1);
+         this.$store.commit("delGoodsInfo",id)
+       }
+     }).catch(err=>{
+        if(err == 'cancel'){
+          this.$router.go(-1)
+        }
+       })
+
+
     },
     selectedChanged(id,val){
       this.$store.commit('updateGoodsSelected',{id,selected:val})
+    },
+    goCheck(sum) {
+      alert('总价为:'+sum)
     }
 
   },

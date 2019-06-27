@@ -4,7 +4,7 @@
  <div id="slider" class="mui-slider">
 	<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 		<div class="mui-scroll">
-		<a :class="['mui-control-item' , item.id == 0 ? 'mui-active' : '']" v-for="item in cates" :key="item.id">
+		<a :class="['mui-control-item' , item.id == 0 ? 'mui-active' : '']" v-for="item in cates" :key="item.id" @tap="getPhotoList(item.id)">
 		{{ item.title }}</a>
 		</div>
 	</div>
@@ -60,7 +60,7 @@ export default {
 					this.list = result.body.message;
 				}
 			})
-		}
+		},
 	},
 
 };
@@ -72,6 +72,7 @@ export default {
 * {
 	margin: 0;
 	padding: 0;
+	touch-action: pan-y;
 }
 .imgarea {
 	padding: 0px 10px;
@@ -115,3 +116,5 @@ export default {
 
 
 </style>
+
+
